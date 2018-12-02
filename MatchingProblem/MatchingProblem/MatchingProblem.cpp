@@ -14,10 +14,11 @@
 -------------------------------------------------------------------*/
 //https://zerojudge.tw/ShowProblem?problemid=c484
 #include "stdafx.h"
-
-
+#include <iostream>
+using namespace std;
 int main()
 {
+	cout << "helloworld" << endl;
     return 0;
 }
 
