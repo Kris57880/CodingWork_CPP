@@ -22,7 +22,6 @@ int n;
 int main()
 {
 	//配置
-	
 	vector<vector<int> > p_M;//preferance of Man
 	vector<vector<int> > p_W;//preferance of Woman
 	vector<int> r_M;//Result of Man
@@ -42,48 +41,40 @@ int main()
 	input(p_M);
 	input(p_W);
 	/*-------------------------------
-	cout<<"preferance of nan \n";
-	for(i=0;i!=n;i++){
-		for(j=0;j!=n;j++)
-			cout<<p_M[i][j]<<" ";
-		cout<<"\n";
-	}
-	cout<<"preferance of woman \n";
-	 for(i=0;i!=n;i++){
-		for(j=0;j!=n;j++)
-			cout<<p_W[i][j]<<" ";
-		cout<<"\n";
-	}
-		
-	-------------------------------*/	
+	for(int i=0;i!=n;i++)	cout<<r_M[i]<<" ";
+	cout<<"\n";
+	for(int i=0;i!=n;i++)	cout<<r_W[i]<<" ";
+	cout<<"\n";	
+	/*-------------------------------*/	
 	//配對
 	int man_index,woman_index,man1_index=-1;
 	for(i=0;i!=n;i++){
 		man_index=i;
 		for(j=0;j!=n;j++){
 			woman_index=p_M[man_index/*y*/][j/*y*/];
-			if(r_W[woman_index]==-1){ //match success
-				r_W[woman_index]=man_index;
+			if(r_W[woman_index-1]==-1){ //match success
+				r_W[woman_index-1]=man_index;
 				r_M[man_index]=woman_index;
-				cout<<woman_index<<" and "<<man_index<<" match success\n";
+				cout<<woman_index<<" and "<<man_index+1<<" match success\n";
 				break;
 			}else{
-				man1_index=r_W[woman_index];
+				man1_index=r_W[woman_index-1];
 				for(k=0;k!=n;k++){//error
-					if(p_W[woman_index][k]==man1_index){//can't match
+					if(p_W[woman_index-1][k]==man1_index){//can't match
 					cout<<"failed,next\n";	break;
 					}else {									//match success
-						r_W[woman_index]=man_index;
+						r_W[woman_index-1]=man_index;
 						r_M[man_index]=woman_index;
 						r_M[man1_index]=-1;	//kick!	
-						cout<<woman_index<<" and "<<man_index<<" match success , and "<<man1_index<<" was kicked\n";
+						cout<<woman_index<<" and "<<man_index+1<<" match success , and "<<man1_index+1<<" was kicked\n";
 						break;
 					}
 				}
 			}
 		}
 	}
-	output(r_M);
+	for(i=0;i!=n;i++)	cout<<r_M[i];
+	//output(r_M);
 	return 0;
 }
 void input(vector<vector<int> >&vec){
@@ -93,8 +84,12 @@ void input(vector<vector<int> >&vec){
 	}
 }
 void output(vector<int> &vec){
-	for(int i=0;i!=n;i++)	cout<<"Man "<<i-1<<":\t"<<vec[i]<<endl;
+	for(int i=0;i!=n;i++)	cout<<"Man "<<i+1<<":\t"<<vec[i]<<endl;
 }
+
+
+
+
 
 
 
