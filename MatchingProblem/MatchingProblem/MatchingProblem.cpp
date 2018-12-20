@@ -18,6 +18,8 @@
 using namespace std;
 void input(vector<vector<int> >&vec);
 void output(vector<int> &vec);
+int search_index(vector<int> r_M);
+int check(vector<int> r_M);
 int n;
 int main()
 {
@@ -40,40 +42,48 @@ int main()
 	//輸入
 	input(p_M);
 	input(p_W);
-	/*-------------------------------
+	//------------------
 	for(int i=0;i!=n;i++)	cout<<r_M[i]<<" ";
 	cout<<"\n";
 	for(int i=0;i!=n;i++)	cout<<r_W[i]<<" ";
 	cout<<"\n";	
-	/*-------------------------------*/	
-	//配對
+	
+	//配對 
 	int man_index,woman_index,man1_index=-1;
-	for(i=0;i!=n;i++){
-		man_index=i;
+	while(check(r_M)==false){
+		man_index=search_index(r_M);
 		for(j=0;j!=n;j++){
 			woman_index=p_M[man_index/*y*/][j/*y*/];
 			if(r_W[woman_index-1]==-1){ //match success
 				r_W[woman_index-1]=man_index;
 				r_M[man_index]=woman_index;
-				cout<<woman_index<<" and "<<man_index+1<<" match success\n";
+				cout<<"woman "<<woman_index<<" and man "<<man_index+1<<" match success\n";
+				for(int i=0;i!=n;i++)	cout<<r_M[i]<<" ";
+				cout<<"\n";	
 				break;
 			}else{
 				man1_index=r_W[woman_index-1];
 				for(k=0;k!=n;k++){//error
 					if(p_W[woman_index-1][k]==man1_index){//can't match
-					cout<<"failed,next\n";	break;
+						cout<<"failed,next\n";
+						for(int i=0;i!=n;i++)	cout<<r_M[i]<<" ";
+						cout<<"\n";	
+						break;
 					}else {									//match success
 						r_W[woman_index-1]=man_index;
 						r_M[man_index]=woman_index;
 						r_M[man1_index]=-1;	//kick!	
-						cout<<woman_index<<" and "<<man_index+1<<" match success , and "<<man1_index+1<<" was kicked\n";
+						cout<<"woman "<<woman_index<<" and man "<<man_index+1<<" match success , and man "<<man1_index+1<<" was kicked\n";
+						for(int i=0;i!=n;i++)	cout<<r_M[i]<<" ";
+						cout<<"\n";
+						i++;	
 						break;
 					}
 				}
 			}
 		}
 	}
-	for(i=0;i!=n;i++)	cout<<r_M[i];
+	for(i=0;i!=n;i++)	cout<<r_M[i]<<" ";
 	//output(r_M);
 	return 0;
 }
@@ -86,8 +96,16 @@ void input(vector<vector<int> >&vec){
 void output(vector<int> &vec){
 	for(int i=0;i!=n;i++)	cout<<"Man "<<i+1<<":\t"<<vec[i]<<endl;
 }
-
-
+int check(vector<int> r_M){
+	for(int i=0;i!=r_M.size();i++){
+		if(r_M[i]==-1)	return false;
+	}
+	return true;
+}
+int search_index(vector<int> r_M){
+	for(int i=0;i!=r_M.size();i++)
+		if(r_M[i]==-1)	return i;
+} 
 
 
 
