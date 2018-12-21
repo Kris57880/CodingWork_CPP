@@ -73,10 +73,10 @@ int main()
 						r_W[woman_index-1]=man_index;
 						r_M[man_index]=woman_index;
 						r_M[man1_index]=-1;	//kick!	
-						cout<<"woman "<<woman_index<<" and man "<<man_index+1<<" match success , and man "<<man1_index+1<<" was kicked\n";
+						cout<<"woman "<<woman_index<<" and man "<<man_index+1
+							<<" match success , and man "<<man1_index+1<<" was kicked\n";
 						for(int i=0;i!=n;i++)	cout<<r_M[i]<<" ";
-						cout<<"\n";
-						i++;	
+						cout<<"\n";	
 						break;
 					}
 				}
