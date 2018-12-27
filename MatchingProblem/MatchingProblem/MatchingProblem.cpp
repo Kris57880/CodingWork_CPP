@@ -44,39 +44,33 @@ int main()
 	//輸入
 	input(p_M);
 	input(p_W);
-	//------------------
-	for(int i=0;i!=n;i++)	cout<<r_M[i]<<" ";
-	cout<<"\n";
-	for(int i=0;i!=n;i++)	cout<<r_W[i]<<" ";
-	cout<<"\n";	
-	
 	//配對 
 	int man_index,woman_index,man1_index=-1;
 	while(check(r_M)==false){
 		man_index=search_index(r_M);
 		for(j=0;j!=n;j++){
-			woman_index=p_M[man_index/*y*/][j/*y*/];
-			if(r_W[woman_index-1]==-1){ //match success
-				r_W[woman_index-1]=man_index;
-				r_M[man_index]=woman_index;
-				cout<<"woman "<<woman_index<<" and man "<<man_index+1<<" match success\n";
+			woman_index=p_M[man_index][j]-1;
+			if(r_W[woman_index]==-1){ 				//match success
+				r_W[woman_index]=man_index+1;
+				r_M[man_index]=woman_index+1;
+				cout<<"man "<<man_index+1<<" and woman "
+				<<woman_index+1<<" match success\n";
 				for(int i=0;i!=n;i++)	cout<<r_M[i]<<" ";
 				cout<<"\n";	
 				break;
 			}else{
-				man1_index=r_W[woman_index-1];
+				cout<<"man "<<man_index+1<<" want to match with woman "	<<woman_index+1;
+				man1_index=r_W[woman_index]-1;
 				compare=cmp(p_W,woman_index,man1_index,man_index,n);
-				if(compare){//can't match
-					cout<<"failed,next\n";
+				if(compare){							//can't match
+					cout<<" , but failed , so he want to match woman"<<p_M[man_index][j+1]<<"\n";
 					for(int i=0;i!=n;i++)	cout<<r_M[i]<<" ";
-					cout<<"\n";	
-					continue;
+					cout<<"\n";
 				}else {									//match success
-					r_W[woman_index-1]=man_index;
-					r_M[man_index]=woman_index;
-					r_M[man1_index]=-1;	//kick!	
-					cout<<"woman "<<woman_index<<" and man "<<man_index+1
-						<<" match success , and man "<<man1_index+1<<" was kicked\n";
+					r_W[woman_index]=man_index+1;
+					r_M[man_index]=woman_index+1;
+					r_M[man1_index]=-1;					//kick!	
+					cout<<" , and match success , man "<<man1_index+1<<" was kicked\n";
 					for(int i=0;i!=n;i++)	cout<<r_M[i]<<" ";
 					cout<<"\n";	
 					break;
@@ -109,9 +103,9 @@ int search_index(vector<int> r_M){
 } 
 int cmp(vector<vector<int> > p_W,int woman_index,int man1_index,int man_index,int n ){
 	for(int k=0;k!=n;k++){//error
-		if(p_W[woman_index-1][k]==man1_index)
+		if(p_W[woman_index][k]==man1_index)
 			return true;
-		else if	(p_W[woman_index-1][k]==man_index)
+		else if	(p_W[woman_index][k]==man_index)
 			return false; 
 	}
 }
